@@ -21,7 +21,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             alt="Hero"
             className="rounded-2xl shadow-lg w-full object-cover
             [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]
-            [mask-image:linear-gradient(to_bottom,transparent,black_3%,black_97%,transparent)]
             "
           />
         </div>

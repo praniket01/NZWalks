@@ -33,7 +33,7 @@ const features: Feature[] = [
 
 const Features: React.FC = () => {
   return (
-    <section className="py-20 px-6 md:px-16 bg-[#f3efe7]">
+    <section className="py-20 px-6 md:px-16 bg-[#efefef]">
       <div className="max-w-6xl mx-auto">
 
         <div className="text-center mb-16">

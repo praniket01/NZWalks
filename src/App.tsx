@@ -1,19 +1,20 @@
-import Features from './Components/Features'
 import './App.css'
-import FamousWalksSection from './Components/FamousWalksSection'
-import HeroSection from './Components/Hero'
-import heroImage from './assets/Hero.jpg'
-import Footer from './Components/Footer'
+import Signup from './pages/Signup'
+import { Routes,Route } from 'react-router-dom'
+import Signin from './pages/Signin'
+import Homepage from './pages/Homepage'
 
 
 function App() {
 
   return (
     <div className="bg-[#efefef] min-h-screen">
-      <HeroSection imageUrl= {heroImage} motto='Walk Through the Heart of country' description='Discover scenic trails, peaceful forests, dramatic coastlines, and breathtaking mountain paths across New Zealand. Start your journey and experience nature like never before.'/>
-      <FamousWalksSection />
-      <Features />
-      <Footer />
+      <Routes>
+        <Route path='/' element={<Homepage />}></Route>
+        <Route path='/signup' element={<Signup />}></Route>
+        <Route path='/signin' element={<Signin />}></Route>
+      </Routes>
+      
     </div>
   )
 }
