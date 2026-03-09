@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import Abel from './../assets/Abel.jpg'
-import Hooker from './../assets/Hooker.jpg'
-import Roys from './../assets/Roys.jpg'
-import Milford from './../assets/Milford.jpg'
-import Tongariro from './../assets/Tongariro.jpg'
+import Abel from './../assets/FamousWalks/Abel.jpg'
+import Hooker from './../assets/FamousWalks/Hooker.jpg'
+import Roys from './../assets/FamousWalks/Roys.jpg'
+import Milford from './../assets/FamousWalks/Milford.jpg'
+import Tongariro from './../assets/FamousWalks/Tongariro.jpg'
 
 type Walk = {
   id: number;
