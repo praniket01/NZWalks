@@ -1,36 +1,69 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import signupImage from './../assets/Features/signupImage.jpg'
+import axios from "axios";
+import { useState } from "react";
 
 const SignUp = () => {
+
+  const navigate = useNavigate();
+  const [role, setRole] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const signUpAction = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+      setLoading(true);
+      const registerUser = await axios.post('https://nzwalksbackend.runasp.net/api/auth/register', {
+        Username: email,
+        Password: password,
+        roles: role === "admin" ? ["reader", "writer"] : ["reader"]
+      });
+      if (registerUser.status == 200) {
+        alert('User Registered Successfully!');
+        navigate('/signin');
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f6f1e9] px-6">
 
       <div className="bg-white shadow-xl rounded-2xl overflow-hidden grid md:grid-cols-2 max-w-4xl w-full">
 
-        {/* Left Column - Image */}
+
         <div className="hidden md:block">
           <img
-            src="/images/signup.jpg"
+            src={signupImage}
             alt="NZ Walks"
             className="h-full w-full object-cover"
           />
         </div>
 
-        {/* Right Column - Form */}
+
         <div className="p-10 flex flex-col justify-center">
 
           <h2 className="text-3xl font-bold mb-6 text-gray-800">
             Create Account
           </h2>
 
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={signUpAction}>
 
-            {/* Role Dropdown */}
+
             <div>
               <label className="block text-sm font-medium mb-1">
                 Select Role
               </label>
               <select
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                onChange={(e) => { setRole(e.target.value) }}
               >
                 <option value="">Choose role</option>
                 <option value="admin">Admin</option>
@@ -38,7 +71,7 @@ const SignUp = () => {
               </select>
             </div>
 
-            {/* Email */}
+
             <div>
               <label className="block text-sm font-medium mb-1">
                 Email
@@ -47,10 +80,10 @@ const SignUp = () => {
                 type="email"
                 placeholder="Enter your email"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                onChange={(e) => { setEmail(e.target.value) }}
               />
             </div>
 
-            {/* Password */}
             <div>
               <label className="block text-sm font-medium mb-1">
                 Password
@@ -59,18 +92,22 @@ const SignUp = () => {
                 type="password"
                 placeholder="Enter password"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                onChange={(e) => { setPassword(e.target.value) }}
               />
             </div>
 
-            {/* Button */}
+
             <button
-              className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition"
+              className={`w-full py-3 rounded-lg text-white transition
+  ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-700 hover:bg-green-800"}`}
+              type="submit"
+
             >
-              Sign Up
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
           </form>
 
-          {/* Sign in link */}
+
           <p className="text-sm text-center mt-6 text-gray-600">
             Already have an account?{" "}
             <Link
