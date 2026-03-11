@@ -10,12 +10,15 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error,setError] = useState("");
+  const [errorVisibility,setErrorVisibility] = useState(false);
 
   const signUpAction = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
       setLoading(true);
+      setErrorVisibility(false);
       const registerUser = await axios.post('https://nzwalksbackend.runasp.net/api/auth/register', {
         Username: email,
         Password: password,
@@ -25,8 +28,10 @@ const SignUp = () => {
         alert('User Registered Successfully!');
         navigate('/signin');
       }
-    } catch (error) {
-      console.log(error);
+    } catch (err : any) {
+      console.log(err);
+      setError(String(err.response?.data || "Signup failed"));
+      setErrorVisibility(true);
     }
     finally {
       setLoading(false);
@@ -95,7 +100,13 @@ const SignUp = () => {
                 onChange={(e) => { setPassword(e.target.value) }}
               />
             </div>
-
+            {errorVisibility && (
+              <>
+              <div className="text-red-600">
+                {error}
+              </div>
+              </>
+            )}
 
             <button
               className={`w-full py-3 rounded-lg text-white transition

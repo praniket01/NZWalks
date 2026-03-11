@@ -1,7 +1,45 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import signin from '../assets/Features/signin.jpg'
+import React, { isValidElement, useState } from "react";
+import axios from "axios";
 
 const SignIn = () => {
+
+  const navigate = useNavigate();
+  const [email,setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [password,setPassword] = useState("");  
+  const [error,setError] = useState("");
+  const [errorVisibility,setErrorVisibility] = useState(false);
+
+  const [token,setToken] = useState("");
+
+  const signinAction = async (e:React.FormEvent) =>{
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const isUserValid = await axios.post('https://nzwalksbackend.runasp.net/api/auth/login',{
+        username : email,
+        password
+      });
+
+      if(isUserValid.status == 200){
+        setToken(isUserValid.data?.jwt);
+        console.log(token);
+        navigate('/Home');
+      }
+      
+    } catch (err:any) {
+
+      console.log(err);
+      setError(String(err.response?.data || "Signup failed"));
+      setErrorVisibility(true);
+      
+    }finally{
+      setLoading(false);
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f6f1e9] px-6">
 
@@ -23,9 +61,7 @@ const SignIn = () => {
             Sign In
           </h2>
 
-          <form className="space-y-5">
-
-         
+          <form className="space-y-5" onSubmit={signinAction}>
             <div>
               <label className="block text-sm font-medium mb-1">
                 Email
@@ -34,6 +70,7 @@ const SignIn = () => {
                 type="email"
                 placeholder="Enter your email"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                onChange={(e)=>{setEmail(e.target.value)}}
               />
             </div>
 
@@ -46,14 +83,24 @@ const SignIn = () => {
                 type="password"
                 placeholder="Enter your password"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                onChange={(e)=>{setPassword(e.target.value)}}
               />
             </div>
 
-        
+        {errorVisibility && (
+              <>
+              <div className="text-red-600">
+                {error}
+              </div>
+              </>
+            )}
             <button
-              className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition"
+              className={`w-full py-3 rounded-lg text-white transition
+  ${loading ? "bg-gray-400 cursor-not-allowed" : "bg-green-700 hover:bg-green-800"}`}
+              type="submit"
+
             >
-              Sign In
+              {loading ? "Signing Up..." : "Sign Up"}
             </button>
 
           </form>
