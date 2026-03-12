@@ -6,6 +6,7 @@ import Homepage from './pages/Homepage'
 import Home from './pages/Home'
 import { useAuthStore } from './store/AuthStore'
 import ProtectedRoute from './api/ProtectedRoute'
+import Discovery from './pages/Discovery'
 
 
 function App() {
@@ -16,14 +17,10 @@ const token = useAuthStore((state) => state.token);
         <Route path='/' element={<Homepage />}></Route>
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/signin' element={<Signin />}></Route>
-        <Route
-          path="/home"
-          element={
-            <ProtectedRoute>
-              <Home />
-            </ProtectedRoute>
-          }
-        />
+         <Route element={<ProtectedRoute />}>
+            <Route path="/home" element={<Home />} />
+            <Route path="/discovery" element={<Discovery />} />
+        </Route>
       </Routes>
       
     </div>

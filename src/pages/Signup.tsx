@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import signupImage from './../assets/Features/signupImage.jpg'
 import axios from "axios";
 import { useState } from "react";
+import axiosInstance from "../api/axioInstance";
 
 const SignUp = () => {
 
@@ -19,7 +20,7 @@ const SignUp = () => {
     try {
       setLoading(true);
       setErrorVisibility(false);
-      const registerUser = await axios.post('https://nzwalksbackend.runasp.net/api/auth/register', {
+      const registerUser = await axiosInstance.post('/auth/register', {
         Username: email,
         Password: password,
         roles: role === "admin" ? ["reader", "writer"] : ["reader"]

@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import signin from '../assets/Features/signin.jpg'
-import React, { isValidElement, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import { useAuthStore } from "../store/AuthStore";
+import axiosInstance from "../api/axioInstance";
 
 const SignIn = () => {
 
@@ -19,7 +19,7 @@ const SignIn = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const isUserValid = await axios.post('https://nzwalksbackend.runasp.net/api/auth/login',{
+      const isUserValid = await axiosInstance.post('auth/login',{
         username : email,
         password
       });
