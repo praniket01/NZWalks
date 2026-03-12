@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import signin from '../assets/Features/signin.jpg'
 import React, { isValidElement, useState } from "react";
 import axios from "axios";
+import { useAuthStore } from "../store/AuthStore";
 
 const SignIn = () => {
 
@@ -12,7 +13,7 @@ const SignIn = () => {
   const [error,setError] = useState("");
   const [errorVisibility,setErrorVisibility] = useState(false);
 
-  const [token,setToken] = useState("");
+  const setToken = useAuthStore((state) => state.setToken);
 
   const signinAction = async (e:React.FormEvent) =>{
     e.preventDefault();
@@ -24,8 +25,8 @@ const SignIn = () => {
       });
 
       if(isUserValid.status == 200){
-        setToken(isUserValid.data?.jwt);
-        console.log(token);
+        const tok = isUserValid.data?.jwt;
+        setToken(tok);
         navigate('/Home');
       }
       
