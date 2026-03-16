@@ -11,7 +11,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-md px-6 md:px-16 py-4">
+    <nav className="sticky top-0 z-50 bg-white shadow-md px-6 md:px-16 py-4">
       <div className="flex items-center justify-between">
 
     
@@ -27,7 +27,7 @@ const Navbar = () => {
           <button onClick={() => navigate("/home")} className="hover:text-green-700">
             Home
           </button>
-          <button onClick={() => navigate("/walks")} className="hover:text-green-700">
+          <button onClick={() => navigate("/discovery")} className="hover:text-green-700">
             Walks
           </button>
           <button onClick={() => navigate("/regions")} className="hover:text-green-700">

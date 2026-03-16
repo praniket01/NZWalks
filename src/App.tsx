@@ -7,6 +7,7 @@ import Home from './pages/Home'
 import { useAuthStore } from './store/AuthStore'
 import ProtectedRoute from './api/ProtectedRoute'
 import Discovery from './pages/Discovery'
+import MainLayout from './pages/layouts/MainLayout'
 
 
 function App() {
@@ -18,8 +19,11 @@ const token = useAuthStore((state) => state.token);
         <Route path='/signup' element={<Signup />}></Route>
         <Route path='/signin' element={<Signin />}></Route>
          <Route element={<ProtectedRoute />}>
-            <Route path="/home" element={<Home />} />
+         <Route  element = {<MainLayout />}>
+          <Route path="/home" element={<Home />} />
             <Route path="/discovery" element={<Discovery />} />
+         </Route>
+            
         </Route>
       </Routes>
       

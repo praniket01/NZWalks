@@ -13,7 +13,7 @@ const SignIn = () => {
   const [error,setError] = useState("");
   const [errorVisibility,setErrorVisibility] = useState(false);
 
-  const setToken = useAuthStore((state) => state.setToken);
+  const setAuth = useAuthStore((state) => state.setAuth);
 
   const signinAction = async (e:React.FormEvent) =>{
     e.preventDefault();
@@ -25,8 +25,10 @@ const SignIn = () => {
       });
 
       if(isUserValid.status == 200){
+        console.log(isUserValid);
         const tok = isUserValid.data?.jwt;
-        setToken(tok);
+        const userName = isUserValid.data?.userName;
+        setAuth(tok,userName);
         navigate('/Home');
       }
       

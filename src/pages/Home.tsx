@@ -1,23 +1,16 @@
 import Footer from "../Components/Footer";
-import Navbar from "../Components/Navbar";
+import HeroSection from "../Components/HeroSection";
+import QuickActions from "../Components/QuickActions";
+import RecommendedWalks from "../Components/RecommendedWalks";
 
 const Home = () => {
   return (
     <div className="bg-[#f6f1e9] min-h-screen">
+      <HeroSection />
+     
+      <QuickActions />
 
-      <Navbar />
-
-      <section className="py-12 px-6 md:px-16">
-        <h1 className="text-3xl font-bold">Welcome back 👋</h1>
-      </section>
-
-      <section className="py-12 px-6 md:px-16">
-        <h2 className="text-2xl font-semibold">Quick Actions</h2>
-      </section>
-
-      <section className="py-12 px-6 md:px-16">
-        <h2 className="text-2xl font-semibold">Recommended Walks</h2>
-      </section>
+      <RecommendedWalks />
 
       <section className="py-12 px-6 md:px-16">
         <h2 className="text-2xl font-semibold">Explore Regions</h2>
@@ -26,6 +19,7 @@ const Home = () => {
       <Footer />
 
     </div>
+
   );
 };
 
