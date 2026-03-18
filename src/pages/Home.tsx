@@ -1,3 +1,4 @@
+import ExploreRegions from "../Components/ExploreRegions";
 import Footer from "../Components/Footer";
 import HeroSection from "../Components/HeroSection";
 import QuickActions from "../Components/QuickActions";
@@ -8,13 +9,13 @@ const Home = () => {
     <div className="bg-[#f6f1e9] min-h-screen">
       <HeroSection />
      
+      {/* <SearchWalks /> */}
+
       <QuickActions />
 
       <RecommendedWalks />
 
-      <section className="py-12 px-6 md:px-16">
-        <h2 className="text-2xl font-semibold">Explore Regions</h2>
-      </section>
+      <ExploreRegions />
 
       <Footer />
 

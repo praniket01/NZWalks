@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../store/AuthStore";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+  const logout  = useAuthStore((state)=>state.logout);
 
   const handleLogout = () => {
+    logout();
     localStorage.removeItem("token");
     navigate("/signin");
   };

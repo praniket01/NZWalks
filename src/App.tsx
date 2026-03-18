@@ -8,6 +8,7 @@ import { useAuthStore } from './store/AuthStore'
 import ProtectedRoute from './api/ProtectedRoute'
 import Discovery from './pages/Discovery'
 import MainLayout from './pages/layouts/MainLayout'
+import Walks from './pages/Walks'
 
 
 function App() {
@@ -22,6 +23,7 @@ const token = useAuthStore((state) => state.token);
          <Route  element = {<MainLayout />}>
           <Route path="/home" element={<Home />} />
             <Route path="/discovery" element={<Discovery />} />
+            <Route path='/walks' element={<Walks />}/>
          </Route>
             
         </Route>
