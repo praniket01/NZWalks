@@ -1,62 +1,67 @@
+import { motion, useMotionValue, useTransform } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import Hero from '../assets/Hero.jpg'
 import { useAuthStore } from "../store/AuthStore";
 
-const HeroSection = () => {
 
-  const navigate = useNavigate();
+const HeroSection = ({ Hero }: { Hero: string }) => {
+
+    const navigate = useNavigate();
   const userName = useAuthStore((state) => state.userName);
-
+  
   return (
-    <section className="py-16">
+    <div className="relative h-[500px] rounded-2xl overflow-hidden">
 
-      <div className="bg-white rounded-2xl shadow-lg p-10 flex flex-col md:flex-row items-center justify-between gap-8">
+      <motion.img
+        src={Hero}
+        alt="NZ Walk"
+        className="absolute inset-0 w-full h-full object-cover"
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.1 }}
+        transition={{ duration: 10, ease: "easeInOut" }}
+      />
 
-        
-        <div>
+      
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
-          <h1 className="text-4xl font-bold text-gray-800 mb-3">
+      {/* Content */}
+      <div className="relative z-10 h-full flex items-center px-10 md:px-16">
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-xl"
+        >
+
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
             Welcome back, {userName} 👋
           </h1>
 
-          <p className="text-gray-600 text-lg mb-6">
-            Ready to explore your next New Zealand adventure?
+          <p className="text-gray-200 text-lg mb-6">
+            Discover breathtaking walks across New Zealand.
           </p>
 
-          
           <div className="flex gap-3">
 
             <input
               type="text"
               placeholder="Search walks..."
-              className="border rounded-lg px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-green-600"
+              className="px-4 py-2 rounded-lg w-64 bg-white/90 backdrop-blur-md focus:outline-none"
             />
 
             <button
               onClick={() => navigate("/walks")}
-              className="bg-green-700 text-white px-5 py-2 rounded-lg hover:bg-green-800 transition"
+              className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition"
             >
-              Explore Walks
+              Explore
             </button>
 
           </div>
 
-        </div>
-
-        
-        <div className="hidden md:block">
-          <img
-            src={Hero}
-            alt="NZ Walk"
-            className="rounded-2xl shadow-lg w-full object-cover
-            [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]
-            "
-          />
-        </div>
+        </motion.div>
 
       </div>
-
-    </section>
+    </div>
   );
 };
 

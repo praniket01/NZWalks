@@ -25,7 +25,7 @@ const WalkCard = ({
 
   return (
     <div
-      onClick={() => navigate(`/walk/${id}`)}
+      onClick={() => navigate(`/api/walks/${id}`)}
       className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:scale-[1.02] transition"
     >
       

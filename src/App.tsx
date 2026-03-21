@@ -9,6 +9,8 @@ import ProtectedRoute from './api/ProtectedRoute'
 import Discovery from './pages/Discovery'
 import MainLayout from './pages/layouts/MainLayout'
 import Walks from './pages/Walks'
+import BrowseRegions from './Components/BrowseRegions'
+import WalkDetails from './Components/WalkDetails'
 
 
 function App() {
@@ -23,6 +25,8 @@ const token = useAuthStore((state) => state.token);
          <Route  element = {<MainLayout />}>
           <Route path="/home" element={<Home />} />
             <Route path='/walks' element={<Walks />}/>
+            <Route path='/regions' element={<BrowseRegions /> } />
+            <Route path='/api/walks/:id'  element= {< WalkDetails />} />
          </Route>
             
         </Route>
