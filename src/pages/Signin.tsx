@@ -26,8 +26,9 @@ const SignIn = () => {
 
       if(isUserValid.status == 200){
         console.log(isUserValid);
+
         const tok = isUserValid.data?.jwt;
-        const userName = isUserValid.data?.userName;
+        const userName = isUserValid.data?.name;
         setAuth(tok,userName);
         navigate('/Home');
       }
@@ -103,7 +104,7 @@ const SignIn = () => {
               type="submit"
 
             >
-              {loading ? "Signing Up..." : "Sign Up"}
+              {loading ? "Signing in..." : "Sign in"}
             </button>
 
           </form>

@@ -30,7 +30,7 @@ const Navbar = () => {
           <button onClick={() => navigate("/home")} className="hover:text-green-700">
             Home
           </button>
-          <button onClick={() => navigate("/discovery")} className="hover:text-green-700">
+          <button onClick={() => navigate("/walks")} className="hover:text-green-700">
             Walks
           </button>
           <button onClick={() => navigate("/regions")} className="hover:text-green-700">

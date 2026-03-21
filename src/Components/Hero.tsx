@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Router } from "react-router-dom";
 
 interface HeroSectionProps {
   imageUrl: string;
@@ -11,6 +12,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   motto,
   description,
 }) => {
+
   return (
     <section className="w-full min-h-150 flex items-center pt-20">
       <div className="max-w-10xl mx-auto grid md:grid-cols-2 gap-10 items-center">
@@ -37,11 +39,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           )}
 
           <div className="flex gap-4 justify-center md:justify-start">
-            <button className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-gray-800 transition">
+            <Link className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-gray-800 transition"
+              to={'./Signin'}>
               Get Started
-            </button>
+            </Link>
 
-            <button className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
+            <button
+              onClick={() => {
+                const section = document.getElementById("OurFeatures");
+                section?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
               Learn More
             </button>
           </div>

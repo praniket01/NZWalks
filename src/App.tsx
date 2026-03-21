@@ -22,7 +22,6 @@ const token = useAuthStore((state) => state.token);
          <Route element={<ProtectedRoute />}>
          <Route  element = {<MainLayout />}>
           <Route path="/home" element={<Home />} />
-            <Route path="/discovery" element={<Discovery />} />
             <Route path='/walks' element={<Walks />}/>
          </Route>
             

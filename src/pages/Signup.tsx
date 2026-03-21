@@ -9,6 +9,7 @@ const SignUp = () => {
   const navigate = useNavigate();
   const [role, setRole] = useState("");
   const [email, setEmail] = useState("");
+  const [name,setName] = useState('');
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error,setError] = useState("");
@@ -23,10 +24,12 @@ const SignUp = () => {
       const registerUser = await axiosInstance.post('/auth/register', {
         Username: email,
         Password: password,
+        name : name,
         roles: role === "admin" ? ["reader", "writer"] : ["reader"]
       });
       if (registerUser.status == 200) {
         alert('User Registered Successfully!');
+        console.log(registerUser);
         navigate('/signin');
       }
     } catch (err : any) {
@@ -87,6 +90,17 @@ const SignUp = () => {
                 placeholder="Enter your email"
                 className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
                 onChange={(e) => { setEmail(e.target.value) }}
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium mb-1">
+                Name
+              </label>
+              <input
+                type="name"
+                placeholder="Enter your Name"
+                className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-green-600"
+                onChange={(e) => { setName(e.target.value) }}
               />
             </div>
 

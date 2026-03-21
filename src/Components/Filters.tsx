@@ -1,16 +1,17 @@
-import { useState } from "react";
+type Props = {
+  region: string;
+  setRegion: (val: string) => void;
+  difficulty: string;
+  setDifficulty: (val: string) => void;
+};
 
-const Filters = () => {
-
-  const [region, setRegion] = useState("");
-  const [difficulty, setDifficulty] = useState("");
+const Filters = ({ region, setRegion, difficulty, setDifficulty }: Props) => {
 
   return (
-    <div className="bg-white p-5 rounded-xl shadow-md space-y-4">
+    <div className="bg-white p-5 rounded-xl shadow-md space-y-4 self-start">
 
       <h3 className="font-semibold text-lg">Filters</h3>
 
-      
       <select
         value={region}
         onChange={(e) => setRegion(e.target.value)}
@@ -21,7 +22,6 @@ const Filters = () => {
         <option value="Nelson">Nelson</option>
       </select>
 
-      
       <select
         value={difficulty}
         onChange={(e) => setDifficulty(e.target.value)}

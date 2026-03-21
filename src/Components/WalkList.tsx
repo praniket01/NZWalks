@@ -1,67 +1,71 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import WalkCard from "./WalkCard";
 import axiosInstance from "../api/axioInstance";
+import WalkCard from "./WalkCard";
 import { useAuthStore } from "../store/AuthStore";
 
-type Walk = any;
+type Props = {
+  region: string;
+  difficulty: string;
+};
 
-const WalkList = () => {
+const WalkList = ({ region, difficulty }: Props) => {
 
-  const [walks, setWalks] = useState<Walk[]>([]);
-  const [pageNumber, setPageNumber] = useState(1);
-  const [pageSize] = useState(6);
-  const [loading, setLoading] = useState(false);
   const token = useAuthStore((state) => state.token);
+
+  const [walks, setWalks] = useState([]);
+  const [pageNumber, setPageNumber] = useState(1);
+  const pageSize = 6;
 
   const fetchWalks = async () => {
     try {
-      setLoading(true);
+      let url = `/walks?pageNumber=${pageNumber}&pageSize=${pageSize}`;
 
-      const res = await axiosInstance.get(`walks?pageNumber=${pageNumber}&pageSize=${pageSize}`,
-        {
-          headers :{
-            Authorization : 'Bearer '+ token
-          }
-        });
+      
+      if (region) {
+        url += `&filterOn=Region&filterQuery=${region}`;
+      } else if (difficulty) {
+        url += `&filterOn=Difficulty&filterQuery=${difficulty}`;
+      }
+
+      const res = await axiosInstance.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       setWalks(res.data);
 
     } catch (err) {
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchWalks();
-  }, [pageNumber]);
+  }, [region, difficulty, pageNumber]);
+
+  useEffect(() => {
+    setPageNumber(1);
+  }, [region, difficulty]);
 
   return (
-    <div>
+    <div className="md:col-span-3">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {walks.map((walk: any) => (
+          <WalkCard
+            key={walk.id}
+            id={walk.id}
+            name={walk.name}
+            description={walk.description}
+            length={walk.length}
+            walkImageUrl={walk.walkImageUrl}
+            regionName={walk.region.name}
+            difficulty={walk.difficulty.name}
+          />
+        ))}
+      </div>
 
-      
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {walks.map((walk: any) => (
-            <WalkCard
-              key={walk.id}
-              id={walk.id}
-              name={walk.name}
-              description={walk.description}
-              length={walk.length}
-              walkImageUrl={walk.walkImageUrl}
-              regionName={walk.region.name}
-              difficulty={walk.difficulty.name}
-            />
-          ))}
-        </div>
-      )}
-
-
+ 
       <div className="flex justify-center gap-4 mt-8">
 
         <button
@@ -72,9 +76,7 @@ const WalkList = () => {
           Previous
         </button>
 
-        <span className="px-4 py-2 font-medium">
-          Page {pageNumber}
-        </span>
+        <span>Page {pageNumber}</span>
 
         <button
           onClick={() => setPageNumber((prev) => prev + 1)}
