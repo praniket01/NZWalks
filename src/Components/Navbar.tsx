@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../store/AuthStore";
+import logo from '../assets/logo.jpg'
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,22 +19,23 @@ const Navbar = () => {
       <div className="flex items-center justify-between">
 
     
-        <div
-          className="text-2xl font-bold text-green-800 cursor-pointer"
+        <img
+        src={logo}
+          className="h-auto w-40 cursor-pointer"
           onClick={() => navigate("/home")}
         >
-          NZ Walks
-        </div>
+         
+        </img>
 
        
         <div className="hidden md:flex gap-8 text-gray-700 font-medium">
-          <button onClick={() => navigate("/home")} className="hover:text-green-700">
+          <button onClick={() => navigate("/home")} className="text-xl hover:text-green-700">
             Home
           </button>
-          <button onClick={() => navigate("/walks")} className="hover:text-green-700">
+          <button onClick={() => navigate("/walks")} className="text-xl hover:text-green-700">
             Walks
           </button>
-          <button onClick={() => navigate("/regions")} className="hover:text-green-700">
+          <button onClick={() => navigate("/regions")} className="text-xl hover:text-green-700">
             Regions
           </button>
         </div>

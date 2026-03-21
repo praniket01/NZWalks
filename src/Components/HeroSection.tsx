@@ -23,7 +23,7 @@ const HeroSection = ({ Hero }: { Hero: string }) => {
       
       <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
-      {/* Content */}
+     
       <div className="relative z-10 h-full flex items-center px-10 md:px-16">
 
         <motion.div
