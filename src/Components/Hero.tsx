@@ -1,61 +1,83 @@
 import React from "react";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import LandingNavbar from "./LandingNavbar";
 
-interface HeroSectionProps {
-  imageUrl: string;
-  motto: string;
-  description?: string;
-}
-
-const HeroSection: React.FC<HeroSectionProps> = ({
-  imageUrl,
-  motto,
-  description,
-}) => {
-
+const HeroSection = ({ imageUrl, motto, description }: any) => {
   return (
-    <section className="w-full min-h-150 flex items-center pt-20">
-      <div className="max-w-10xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+    <section className="relative h-screen w-full overflow-hidden">
 
-        <div className="flex justify-center md:justify-start">
-          <img
-            src={imageUrl}
-            alt="Hero"
-            className="rounded-2xl shadow-lg w-full object-cover
-            [mask-image:linear-gradient(to_right,transparent,black_3%,black_97%,transparent)]
-            "
-          />
-        </div>
 
-        <div className="text-center md:text-left space-y-6">
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
-            {motto}
-          </h1>
+      <LandingNavbar />
 
-          {description && (
-            <p className="text-lg text-gray-600 max-w-xl">
-              {description}
-            </p>
-          )}
+      <motion.img
+        src={imageUrl}
+        alt="Hero"
+        className="absolute inset-0 w-full h-full object-cover"
+        initial={{ scale: 1 }}
+        animate={{ scale: 1.1 }}
+        transition={{ duration: 12, ease: "easeInOut" }}
+      />
 
-          <div className="flex gap-4 justify-center md:justify-start">
-            <Link className="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-gray-800 transition"
-              to={'./Signin'}>
-              Get Started
+
+      <div className="absolute inset-0 bg-black/50" />
+
+
+      <div className="relative z-10 h-full flex flex-col justify-center items-center text-center px-6">
+
+        <motion.h1
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-6xl font-bold text-white max-w-3xl leading-tight"
+        >
+          {motto}
+        </motion.h1>
+
+
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+          className="text-lg md:text-xl text-gray-200 mt-6 max-w-2xl"
+        >
+          {description}
+        </motion.p>
+
+
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 0.8 }}
+          className="flex gap-4 mt-8 items-center"
+        >
+
+      
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Link
+              to="/signup"
+              className="flex items-center justify-center h-[48px] px-6 bg-green-600 text-white rounded-lg hover:bg-green-700 transition shadow"
+            >
+              Start Exploring
             </Link>
+          </motion.div>
 
-            <button
-              onClick={() => {
-                const section = document.getElementById("OurFeatures");
-                section?.scrollIntoView({ behavior: "smooth" });
-              }}
-              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition">
-              Learn More
-            </button>
-          </div>
-        </div>
+        
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => {
+              document.getElementById("OurFeatures")?.scrollIntoView({ behavior: "smooth" });
+            }}
+            className="flex items-center justify-center h-[48px] px-6 border border-white text-white rounded-lg hover:bg-white hover:text-black transition"
+          >
+            Learn More
+          </motion.button>
+
+        </motion.div>
 
       </div>
+
     </section>
   );
 };

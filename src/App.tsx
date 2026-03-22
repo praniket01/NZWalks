@@ -11,6 +11,7 @@ import MainLayout from './pages/layouts/MainLayout'
 import Walks from './pages/Walks'
 import BrowseRegions from './Components/BrowseRegions'
 import WalkDetails from './Components/WalkDetails'
+import LandingNavbar from './Components/LandingNavbar'
 
 
 function App() {
