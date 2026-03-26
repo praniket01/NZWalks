@@ -1,10 +1,8 @@
-import axios from "axios";
 import { Heart, MapPin, Mountain, Ruler } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../api/axioInstance";
 import { useAuthStore } from "../store/AuthStore";
-import { header } from "framer-motion/client";
 
 type WalkCardProps = {
   id: string;
@@ -26,66 +24,80 @@ const WalkCard = ({
   difficulty,
 }: WalkCardProps) => {
 
-  const [saved, setSaved] = useState(false);
   const [loading, setLoading] = useState(false);
-  const token = useAuthStore((state)=> state.token);
+  const token = useAuthStore((state) => state.token);
   const navigate = useNavigate();
 
-  const handleSaveToggle = async () =>{
-    if(loading) return;
-    try {
-    if(!saved){
-      await axiosInstance.post(`walks/save/${id}`,{
+  const addSavedWalk = useAuthStore((s) => s.addSavedWalk);
+  const removeSavedWalk = useAuthStore((s) => s.removeSavedWalk);
+  const savedWalks = useAuthStore((s) => s.savedWalks);
 
-      },{
-        headers : {
-          Authorization : 'Bearer '+token
-        }
-      });
-      console.log("saved "+id);
-      setSaved(true);
-    }else{
-      await axiosInstance.delete(`walks/unsave/${id}`,{
-        headers : {
-          Authorization : 'Bearer '+token
-        }
-      });
-      setSaved(false);
-    } 
-    } catch (error) {
-        console.log(error)
-    }
-    finally{
+  
+  const isSaved = savedWalks.some((w) => w.id === id);
+
+  const handleSaveToggle = async () => {
+    if (loading) return;
+
+    setLoading(true);
+
+    try {
+      if (!isSaved) {
+        await axiosInstance.post(`walks/save/${id}`, {}, {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+
+        addSavedWalk({
+          id,
+          name,
+          description,
+          length,
+          walkImageUrl,
+          region: { name: regionName },
+          difficulty: { name: difficulty }
+        });
+
+      } else {
+        await axiosInstance.delete(`walks/unsave/${id}`, {
+          headers: { Authorization: 'Bearer ' + token }
+        });
+
+        removeSavedWalk(id);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
       setLoading(false);
     }
-  }
+  };
 
   return (
     <div
-      onClick={() => navigate(`/walks/${id}`)}
-      className="bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:scale-[1.02] transition"
+      onClick={() => navigate(`../../api/walks/${id}`)}
+      className="relative bg-white rounded-xl shadow-md overflow-hidden cursor-pointer hover:shadow-xl hover:scale-[1.02] transition"
     >
-     <button
-        
-        onClick={(e)=>{
-          e.stopPropagation(); 
-          handleSaveToggle()
+     
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          handleSaveToggle();
         }}
         className="absolute top-3 right-3 bg-white p-2 rounded-full shadow hover:scale-110 transition"
+        disabled={loading}
       >
         <Heart
           size={20}
-          className={saved ? "text-red-500" : "text-gray-400"}
-          fill={saved ? "currentColor" : "none"}
+          className={isSaved ? "text-red-500" : "text-gray-400"}
+          fill={isSaved ? "currentColor" : "none"}
         />
-      </button> 
+      </button>
+
       <img
         src={walkImageUrl}
         alt={name}
         className="h-48 w-full object-cover"
       />
 
-      
+
       <div className="p-4">
 
         <h3 className="font-semibold text-lg text-gray-800 mb-1">
@@ -110,7 +122,7 @@ const WalkCard = ({
           <Ruler size={16} />
           Length: {length} km
         </div>
-      
+
       </div>
     </div>
   );

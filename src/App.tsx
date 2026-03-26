@@ -6,12 +6,11 @@ import Homepage from './pages/Homepage'
 import Home from './pages/Home'
 import { useAuthStore } from './store/AuthStore'
 import ProtectedRoute from './api/ProtectedRoute'
-import Discovery from './pages/Discovery'
 import MainLayout from './pages/layouts/MainLayout'
 import Walks from './pages/Walks'
 import BrowseRegions from './Components/BrowseRegions'
 import WalkDetails from './Components/WalkDetails'
-import LandingNavbar from './Components/LandingNavbar'
+import SavedWalks from './pages/SavedWalks'
 
 
 function App() {
@@ -24,9 +23,11 @@ const token = useAuthStore((state) => state.token);
         <Route path='/signin' element={<Signin />}></Route>
          <Route element={<ProtectedRoute />}>
          <Route  element = {<MainLayout />}>
+          
           <Route path="/home" element={<Home />} />
             <Route path='/walks' element={<Walks />}/>
             <Route path='/regions' element={<BrowseRegions /> } />
+            <Route path='/saved' element={<SavedWalks />} />
             <Route path='/api/walks/:id'  element= {< WalkDetails />} />
          </Route>
             

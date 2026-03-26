@@ -25,7 +25,7 @@ const SignIn = () => {
       });
 
       if(isUserValid.status == 200){
-        console.log(isUserValid);
+
 
         const tok = isUserValid.data?.jwt;
         const userName = isUserValid.data?.name;
@@ -35,7 +35,7 @@ const SignIn = () => {
       
     } catch (err:any) {
 
-      console.log(err);
+      
       setError(String(err.response?.data || "Signup failed"));
       setErrorVisibility(true);
       

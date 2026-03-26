@@ -13,6 +13,7 @@ const WalkList = ({ region, difficulty }: Props) => {
   const token = useAuthStore((state) => state.token);
 
   const [walks, setWalks] = useState([]);
+  const [savedIds, setSavedIds] = useState<string[]>([]);
   const [pageNumber, setPageNumber] = useState(1);
   const pageSize = 6;
 
@@ -38,7 +39,30 @@ const WalkList = ({ region, difficulty }: Props) => {
     } catch (err) {
       console.error(err);
     }
+
+
   };
+const fetchSaved = async () => {
+  const res = await axiosInstance.get(
+    'walks/saved',
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  
+  const ids = res.data.value.map((w: any) => w.id);
+  
+  setSavedIds(ids);
+  
+};
+
+useEffect(() => {
+  if (token) {
+    fetchSaved();
+  }
+}, [token]);
 
   useEffect(() => {
     fetchWalks();
@@ -61,6 +85,7 @@ const WalkList = ({ region, difficulty }: Props) => {
             walkImageUrl={walk.walkImageUrl}
             regionName={walk.region.name}
             difficulty={walk.difficulty.name}
+            isSaved={savedIds.includes(walk.id)}
           />
         ))}
       </div>
