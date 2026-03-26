@@ -36,10 +36,10 @@ const Footer: React.FC = () => {
         <div>
           <h3 className="text-lg font-semibold mb-4">Popular Walks</h3>
           <ul className="space-y-10 gap-y-10 text-gray-300">
-            <Link to='http://localhost:5173/api/walks/B1000000-0000-4000-8000-000000000067'> <li className="hover:text-white cursor-pointer">Sunny Meadow Path</li> </Link>
-            <Link to='http://localhost:5173/api/walks/B1000000-0000-4000-8000-000000000092'> <li className="hover:text-white cursor-pointer">Valley Breeze Trail</li> </Link>
-            <Link to='http://localhost:5173/api/walks/B1000000-0000-4000-8000-000000000097'> <li className="hover:text-white cursor-pointer">Alpine Peak Trek</li> </Link>
-            <Link to='http://localhost:5173/api/walks/B1000000-0000-4000-8000-000000000100' > <li className="hover:text-white cursor-pointer">Cliff Horizon Walk</li> </Link>
+            <Link to='https://nzwalksbackend.runasp.net/api/walks/B1000000-0000-4000-8000-000000000067'> <li className="hover:text-white cursor-pointer">Sunny Meadow Path</li> </Link>
+            <Link to='https://nzwalksbackend.runasp.net/api/walks/B1000000-0000-4000-8000-000000000092'> <li className="hover:text-white cursor-pointer">Valley Breeze Trail</li> </Link>
+            <Link to='https://nzwalksbackend.runasp.net/api/walks/B1000000-0000-4000-8000-000000000097'> <li className="hover:text-white cursor-pointer">Alpine Peak Trek</li> </Link>
+            <Link to='https://nzwalksbackend.runasp.net/api/walks/B1000000-0000-4000-8000-000000000100' > <li className="hover:text-white cursor-pointer">Cliff Horizon Walk</li> </Link>
           </ul>
         </div>
 
